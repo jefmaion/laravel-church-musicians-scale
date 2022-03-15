@@ -22,7 +22,36 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+
+       
+
+        $datatable = [
+
+            'route' => 'member',
+
+            'header' => [
+                'Nome' => 'name',
+                'Email' => 'email',
+                'Telefone' => 'phone'
+            ],
+
+            'data' => [
+                (object)  [
+                    'id' => 1,
+                    'name' => 'Jefferson',
+                    'email' => 'jefmaion@hotmail.com',
+                    'phone' => '(19) 98552480'
+                ],
+                (object)  [
+                    'id' => 2,
+                    'name' => 'Jefferson',
+                    'email' => 'jefmaion@hotmail.com',
+                    'phone' => '(19) 98552480'
+                ]
+            ]
+        ];
+
+        return view('member.index', ['datatable' => $datatable]);
     }
 
     /**
@@ -88,6 +117,6 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->route('member.index');
     }
 }
