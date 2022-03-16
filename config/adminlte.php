@@ -259,6 +259,11 @@ return [
             'url'  => 'member',
             'icon' => 'fa fa-users',
         ],
+        [
+            'text' => 'Instrumentos',
+            'url'  => 'instrument',
+            'icon' => 'fas fa-guitar',
+        ],
         // [
         //     'text' => 'change_password',
         //     'url'  => 'admin/settings',

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Contracts\{
+    InstrumentRepositoryInterface,
     MemberRepositoryInterface
 };
 use App\Repository\{
+    InstrumentRepository,
     MemberRepository
 };
 
@@ -21,6 +23,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(MemberRepositoryInterface::class, MemberRepository::class);
+        $this->app->bind(InstrumentRepositoryInterface::class, InstrumentRepository::class);
     }
 
     /**

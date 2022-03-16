@@ -6,7 +6,7 @@
                 @foreach($params['header'] as $label => $name)
                     <th>{{ $label }}</th>
                 @endforeach
-                <th>Ações</th>
+                <th class="text-center">Ações</th>
             </tr>
         </thead>
 
@@ -19,7 +19,7 @@
                 @endforeach
 
                           
-                <td>
+                <td class="text-center">
                     <div class="dropdown">
 
                         <a href="#" class="text-secondary" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

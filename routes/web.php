@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\InstrumentController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberInstrumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,5 @@ Route::get('/', function () {
 });
 
 Route::resource('member', MemberController::class);
+// Route::resource('member/{member}/instrument', MemberInstrumentController::class, ['as' => 'member']);
+Route::resource('instrument', InstrumentController::class);
