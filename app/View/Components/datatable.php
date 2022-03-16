@@ -18,7 +18,7 @@ class Datatable extends Component
      *
      * @return void
      */
-    public function __construct($params)
+    public function __construct($params=[])
     {
         // $this->header = $header;
         // $this->routeName = $routeName;

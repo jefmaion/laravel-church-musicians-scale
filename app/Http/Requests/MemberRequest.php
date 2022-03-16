@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MemberRequest extends FormRequest
 {
@@ -23,9 +24,10 @@ class MemberRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => ['required'],
-            'email' => ['required']
+            'name' => ['required', Rule::unique('members')->ignore($this->member)],
+            'email' => ['email', 'required', Rule::unique('members')->ignore($this->member)]
         ];
     }
 }

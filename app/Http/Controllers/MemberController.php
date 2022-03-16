@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
+use App\Models\Member;
 use App\Services\MemberService;
 
 class MemberController extends Controller
@@ -35,23 +36,10 @@ class MemberController extends Controller
                 'Telefone' => 'phone'
             ],
 
-            'data' => [
-                (object)  [
-                    'id' => 1,
-                    'name' => 'Jefferson',
-                    'email' => 'jefmaion@hotmail.com',
-                    'phone' => '(19) 98552480'
-                ],
-                (object)  [
-                    'id' => 2,
-                    'name' => 'Jefferson',
-                    'email' => 'jefmaion@hotmail.com',
-                    'phone' => '(19) 98552480'
-                ]
-            ]
+            'data' => $this->memberService->listMembers()
         ];
 
-        return view('member.index', ['datatable' => $datatable]);
+        return view('member.index', ['data' => $datatable]);
     }
 
     /**
@@ -61,7 +49,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.create', ['member' => new Member()]);
     }
 
     /**
@@ -72,7 +60,8 @@ class MemberController extends Controller
      */
     public function store(MemberRequest $request)
     {
-        //
+        $this->memberService->addNewMember($request->except('_token'));
+        return redirect()->route('member.index');
     }
 
     /**
@@ -94,7 +83,7 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('member.update', ['member' => $this->memberService->getMember($id)]);
     }
 
     /**
@@ -106,7 +95,8 @@ class MemberController extends Controller
      */
     public function update(MemberRequest $request, $id)
     {
-        //
+        $this->memberService->updateMember($id, $request->except(['_token', '_method']));
+        return redirect()->route('member.index');
     }
 
     /**
@@ -117,6 +107,7 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
+        $this->memberService->deleteMember($id);
         return redirect()->route('member.index');
     }
 }

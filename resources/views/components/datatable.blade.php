@@ -6,7 +6,7 @@
                 @foreach($params['header'] as $label => $name)
                     <th>{{ $label }}</th>
                 @endforeach
-                <th></th>
+                <th>Ações</th>
             </tr>
         </thead>
 
@@ -30,25 +30,23 @@
 
                             <h6 class="dropdown-header text-left">Ações</h6>
 
-                            {{-- <a href="{{ route($params['route'] . '.show', $item) }}" class="dropdown-item">
+                            <a href="{{ route($params['route'] . '.show', $item) }}" class="dropdown-item">
                                 <i class="fa fa-eye" aria-hidden="true"></i> Ver
-                            </a> --}}
+                            </a>
 
-                            {{-- <a href="{{ route($params['route'] . '.edit', $item) }}" class="dropdown-item">
+                            <a href="{{ route($params['route'] . '.edit', $item) }}" class="dropdown-item">
                                 <i class="fas fa-edit    "></i> Editar
                             </a>
 
                             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-delete-">
                                 <i class="fas fa-trash-alt    "></i> Excluir
-                            </a> --}}
-
-                            
+                            </a>
 
                         </div>
 
                     </div>
 
-                    {{-- <div class="modal" id="modal-delete-" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal" id="modal-delete-" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -80,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                 </td>
             </tr>
@@ -89,3 +87,15 @@
         </tbody>
     </table>
 </div>
+
+@section('plugins.Datatables', true)
+
+@section('css')
+   <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">
+@stop
+
+
+
+@section('js')
+    <script src="{{ asset('js/datatable.js') }}"></script>
+@stop
