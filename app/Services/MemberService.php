@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\MemberRepositoryInterface;
+use App\Models\MemberInstrument;
 
 class MemberService {
 
@@ -30,6 +31,10 @@ class MemberService {
 
     public function deleteMember(int $id) {
         $this->repository->destroy($id);
+    }
+
+    public function getMemberInstrument(int $id) {
+        return MemberInstrument::with('instrument')->with('level')->where('member_id', $id)->get();
     }
 
 

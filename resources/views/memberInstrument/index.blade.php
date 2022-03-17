@@ -52,13 +52,13 @@
                 </thead>
         
                 <tbody>
-                    @foreach($member->instrument as  $item)
-                    
+                    @foreach($instruments as  $item)
+  
                     <tr>
                       
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->pivot->level_id }}</td>
-                        <td>{{ $item->pivot->comments }}</td>
+                        <td>{{ $item->instrument->name }}</td>
+                        <td>{{ $item->level->name }}</td>
+                        <td>{{ $item->comments }}</td>
                            
                         <td class="text-center">
                             <div class="dropdown">

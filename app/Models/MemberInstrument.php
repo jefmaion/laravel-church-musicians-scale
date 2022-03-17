@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class MemberInstrument extends Model
+class MemberInstrument extends BaseModel
 {
-    use HasFactory;
+
+    protected $table = 'member_instrument';
+    
+    public function instrument() {
+        return $this->belongsTo(Instrument::class, 'instrument_id');
+    }
+
+    public function level() {
+        return $this->belongsTo(Level::class, 'level_id');
+    }
+
 }

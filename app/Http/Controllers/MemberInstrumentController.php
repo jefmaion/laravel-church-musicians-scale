@@ -32,7 +32,9 @@ class MemberInstrumentController extends Controller
     {
 
         $member = $this->memberService->getMember($idMember);
-        return view('memberInstrument.index', ['member' =>$member]);
+        $instruments = $this->memberService->getMemberInstrument($idMember);
+
+        return view('memberInstrument.index', ['member' =>$member, 'instruments' => $instruments]);
     }
 
     /**
