@@ -36,10 +36,18 @@ class MemberController extends Controller
                 'Telefone' => 'phone'
             ],
 
+            'actions' => [
+                [
+                    'label' => 'Instrumentos',
+                    'icon' => 'fas fa-guitar',
+                    'url' => route('member.instrument.index', 1)
+                ]
+            ],
+
             'data' => $this->memberService->listMembers()
         ];
 
-        return view('member.index', ['data' => $datatable]);
+        return view('member.index', ['members' => $this->memberService->listMembers()]);
     }
 
     /**

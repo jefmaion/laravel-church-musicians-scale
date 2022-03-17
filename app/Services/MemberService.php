@@ -32,4 +32,12 @@ class MemberService {
         $this->repository->destroy($id);
     }
 
+
+    public function setInstrument($id, $request) {
+        $member = $this->getMember($id);
+        $member->instrument()->attach($request['instrument_id'], $request);
+
+        return $member;
+    }
+
 }

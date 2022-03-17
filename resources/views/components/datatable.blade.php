@@ -30,6 +30,18 @@
 
                             <h6 class="dropdown-header text-left">Ações</h6>
 
+                            @if(isset($params['actions']))
+
+                                @foreach($params['actions'] as $action)
+
+                                    <a href="{{ $action['url'] }}" class="dropdown-item">
+                                        <i class="{{ $action['icon'] }}" aria-hidden="true"></i> {{ $action['label'] }}
+                                    </a>
+
+                                @endforeach
+
+                            @endif
+
                             <a href="{{ route($params['route'] . '.show', $item) }}" class="dropdown-item">
                                 <i class="fa fa-eye" aria-hidden="true"></i> Ver
                             </a>

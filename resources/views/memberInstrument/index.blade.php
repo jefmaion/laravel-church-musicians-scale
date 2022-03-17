@@ -7,12 +7,13 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0"><i class="fa fa-users" aria-hidden="true"></i> Membros</h1>
+            <h1 class="m-0"><i class="fa fa-users" aria-hidden="true"></i> Instrumentos de {{ $member->name }} </h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active">Membros</li>
+                <li class="breadcrumb-item active">Instrumentos</li>
             </ol>
         </div>
     </div>
@@ -27,8 +28,8 @@
 
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-success" href="{{ route('member.create') }}" role="button">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> Novo Membro
+                    <a class="btn btn-success" href="{{ route('member.instrument.create', $member) }}" role="button">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Novo Instrumento
                     </a>
                 </div>
                 <div class="col">
@@ -43,24 +44,22 @@
 
                 <thead class="bg-light">
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
+                        <th>Instrumento</th>
+                        <th>Nível</th>
+                        <th>Observação</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
         
                 <tbody>
-                    @foreach($members as  $item)
+                    @foreach($member->instrument as  $item)
                     
                     <tr>
                       
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->phone }}</td>
-        
-                        
-                                  
+                        <td>{{ $item->pivot->level_id }}</td>
+                        <td>{{ $item->pivot->comments }}</td>
+                           
                         <td class="text-center">
                             <div class="dropdown">
         
@@ -72,23 +71,13 @@
         
                                     <h6 class="dropdown-header text-left">Ações</h6>
         
-                                  
         
-                                    <a href="{{ route('member.show', $item) }}" class="dropdown-item">
-                                        <i class="fa fa-eye" aria-hidden="true"></i> Ver
-                                    </a>
-        
-                                    <a href="{{ route('member.edit', $item) }}" class="dropdown-item">
+                                    <a href="{{ route('member.instrument.edit', [$member, $item]) }}" class="dropdown-item">
                                         <i class="fas fa-edit    "></i> Editar
                                     </a>
         
                                     <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-delete-">
                                         <i class="fas fa-trash-alt    "></i> Excluir
-                                    </a>
-                                    
-                                    <div class="dropdown-divider"></div>
-                                    <a href="{{ route('member.instrument.index', $item) }}" class="dropdown-item">
-                                        <i class="fa fa-guitar" aria-hidden="true"></i> Instrumentos
                                     </a>
         
                                 </div>

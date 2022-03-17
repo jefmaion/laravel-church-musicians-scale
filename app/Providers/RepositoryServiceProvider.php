@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Contracts\{
     InstrumentRepositoryInterface,
+    LevelRepositoryInterface,
     MemberRepositoryInterface
 };
 use App\Repository\{
     InstrumentRepository,
+    LevelRepository,
     MemberRepository
 };
 
@@ -24,6 +26,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(MemberRepositoryInterface::class, MemberRepository::class);
         $this->app->bind(InstrumentRepositoryInterface::class, InstrumentRepository::class);
+        $this->app->bind(LevelRepositoryInterface::class, LevelRepository::class);
     }
 
     /**

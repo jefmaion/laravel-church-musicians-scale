@@ -21,5 +21,5 @@ Route::get('/', function () {
 });
 
 Route::resource('member', MemberController::class);
-// Route::resource('member/{member}/instrument', MemberInstrumentController::class, ['as' => 'member']);
+Route::resource('member/{member}/instrument', MemberInstrumentController::class, ['as' => 'member']);
 Route::resource('instrument', InstrumentController::class);

@@ -4,7 +4,41 @@
 <div class="row">
 
 
-<div class="form-group col-9">
+  <div class="col">
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Instrumento</label>
+        <select class="form-control select2" name="instrument_id">
+          @foreach($instruments as $instrument)
+        <option value="{{ $instrument->id }}">{{ $instrument->name }}</option>
+        @endforeach
+        </select>
+        <div class="invalid-feedback"></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Nível</label>
+        <select class="form-control select2" name="level_id">
+          @foreach($levels as $level)
+        <option value="{{ $level->id }}">{{ $level->name }}</option>
+        @endforeach
+        </select>
+        <div class="invalid-feedback"></div>
+    </div>
+  </div>
+
+<div class="col-12">
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Comentários</label>
+    <textarea class="form-control" name="comments" rows="3">{{ $memberInstrument->comments }}</textarea>
+  </div>
+</div>
+
+
+{{-- 
+
+<div class="form-group col-12">
     <label for="">Nome</label>
     <input type="text" class="form-control {{ ($errors->has('name')) ? 'is-invalid' : '' }}" name="name" value="{{ old('name', $member->name) }}" aria-describedby="helpId" placeholder="">
     @if($errors->has('name'))
@@ -12,16 +46,6 @@
           {{ $errors->first('name') }}
       </div>
     @endif
-</div>
-
-<div class="form-group col-3">
-  <label for="">Apelido</label>
-  <input type="text" class="form-control {{ ($errors->has('nickname')) ? 'is-invalid' : '' }}" name="nickname" value="{{ old('nickname', $member->nickname) }}" aria-describedby="helpId" placeholder="">
-  @if($errors->has('nickname'))
-    <div class="invalid-feedback">
-        {{ $errors->first('nickname') }}
-    </div>
-  @endif
 </div>
 
 <div class="form-group col">
@@ -73,7 +97,7 @@
     <label for="exampleFormControlTextarea1">Comentários</label>
     <textarea class="form-control" name="comments" rows="3">{{ $member->comments }}</textarea>
   </div>
-</div>
+</div> --}}
 
 
 
