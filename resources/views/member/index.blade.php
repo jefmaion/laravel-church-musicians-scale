@@ -145,3 +145,14 @@
 
 @stop
 
+@section('plugins.Datatables', true)
+
+@section('css')
+   <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">
+@stop
+
+
+
+@section('js')
+    <script src="{{ asset('js/datatable.js') }}"></script>
+@stop

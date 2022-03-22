@@ -1,9 +1,7 @@
 <?php
 
-use App\Models\Level;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateLevelTable extends Migration
@@ -23,13 +21,6 @@ class CreateLevelTable extends Migration
 
             $table->string('name', 200);
         });
-
-
-        $data = ['Iniciante', 'intermediário', 'Avançado', 'Domínio'];
-        foreach($data as $item) {
-            Level::create(['name' => $item]);
-        }
-
 
     }
 
