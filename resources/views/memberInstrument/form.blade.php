@@ -4,34 +4,44 @@
 <div class="row">
 
 
-  <div class="col">
+  <div class="col-12">
     <div class="form-group">
         <label for="exampleFormControlSelect1">Instrumento</label>
-        <select class="form-control select2" name="instrument_id">
+        <select class="form-control select2 {{ ($errors->has('member_instrument.instrument_id')) ? 'is-invalid' : '' }}"  name="member_instrument[instrument_id]">
+          <option value=""></option>
           @foreach($instruments as $instrument)
-        <option value="{{ $instrument->id }}">{{ $instrument->name }}</option>
+        <option value="{{ $instrument->id }}" {{ ($instrument->id == old('member_instrument.instrument_id', ($memberInstrument->pivot->instrument_id ?? ''))) ? 'selected' : "" }}>{{ $instrument->name }}</option>
         @endforeach
         </select>
-        <div class="invalid-feedback"></div>
+        @if($errors->has('member_instrument.instrument_id'))
+        <div class="invalid-feedback">
+            {{ $errors->first('member_instrument.instrument_id') }}
+        </div>
+      @endif
     </div>
   </div>
 
-  <div class="col">
+  <div class="col-12">
     <div class="form-group">
         <label for="exampleFormControlSelect1">Nível</label>
-        <select class="form-control select2" name="level_id">
+        <select class="form-control select2 {{ ($errors->has('member_instrument.level_id')) ? 'is-invalid' : '' }}" name="member_instrument[level_id]">
+          <option value=""></option>
           @foreach($levels as $level)
-        <option value="{{ $level->id }}">{{ $level->name }}</option>
+        <option value="{{ $level->id }}" {{ ($level->id == old('member_instrument.level_id', ($memberInstrument->pivot->level_id ?? ''))) ? 'selected' : "" }}>{{ $level->name }}</option>
         @endforeach
         </select>
-        <div class="invalid-feedback"></div>
+        @if($errors->has('member_instrument.level_id'))
+        <div class="invalid-feedback">
+            {{ $errors->first('member_instrument.level_id') }}
+        </div>
+      @endif
     </div>
   </div>
 
 <div class="col-12">
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Comentários</label>
-    <textarea class="form-control" name="comments" rows="3">{{ $memberInstrument->comments }}</textarea>
+    <textarea class="form-control" name="member_instrument[comments]" rows="3">{{ old('member_instrument.comments', ($memberInstrument->pivot->comments ?? '')) }}</textarea>
   </div>
 </div>
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\MemberRepositoryInterface;
+use App\Models\Member;
 use App\Models\MemberInstrument;
 
 class MemberService {
@@ -33,16 +34,24 @@ class MemberService {
         $this->repository->destroy($id);
     }
 
-    public function getMemberInstrument(int $id) {
-        return MemberInstrument::with('instrument')->with('level')->where('member_id', $id)->get();
+    public function addInstrument(Member $member, $request) {
+        $member = $member->instruments()->attach($member, $request);
+        return $member;
+    }
+
+    public function updateInstrument(Member $member, $request) {
+        $member->instruments()->updateExistingPivot($request['instrument_id'], $request);
+        return $member;
+    }
+
+    public function deleteInstrument(Member $member, $request) {
+        $member->instruments()->detach($request);
+        return $member;
     }
 
 
-    public function setInstrument($id, $request) {
-        $member = $this->getMember($id);
-        $member->instrument()->attach($request['instrument_id'], $request);
-
-        return $member;
+    public function getInstrument($member, $id) {
+        return $member->instruments()->where('instrument_id', $id)->first();
     }
 
 }

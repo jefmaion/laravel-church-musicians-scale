@@ -23,30 +23,6 @@ class MemberController extends Controller
      */
     public function index()
     {
-
-       
-
-        $datatable = [
-
-            'route' => 'member',
-
-            'header' => [
-                'Nome' => 'name',
-                'Email' => 'email',
-                'Telefone' => 'phone'
-            ],
-
-            'actions' => [
-                [
-                    'label' => 'Instrumentos',
-                    'icon' => 'fas fa-guitar',
-                    'url' => route('member.instrument.index', 1)
-                ]
-            ],
-
-            'data' => $this->memberService->listMembers()
-        ];
-
         return view('member.index', ['members' => $this->memberService->listMembers()]);
     }
 

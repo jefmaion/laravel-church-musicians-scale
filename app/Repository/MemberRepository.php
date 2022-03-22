@@ -12,4 +12,8 @@ class MemberRepository extends BaseRepository implements MemberRepositoryInterfa
         parent::__construct($model);
     }
 
+    public function getInstrument($id) {
+        return $this->model->instruments()->where('id', $id)->first();
+    }
+
 }

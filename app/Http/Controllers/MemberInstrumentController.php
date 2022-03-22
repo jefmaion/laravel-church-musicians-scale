@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MemberInstrument;
+use App\Http\Requests\MemberInstrumentRequest;
 use App\Services\InstrumentService;
 use App\Services\LevelService;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
+use stdClass;
 
 class MemberInstrumentController extends Controller
 {
@@ -31,10 +32,14 @@ class MemberInstrumentController extends Controller
     public function index($idMember)
     {
 
-        $member = $this->memberService->getMember($idMember);
-        $instruments = $this->memberService->getMemberInstrument($idMember);
+        if(!$member = $this->memberService->getMember($idMember)) {
+            return redirect()->back();
+        }
 
-        return view('memberInstrument.index', ['member' =>$member, 'instruments' => $instruments]);
+        return view('memberInstrument.index', [
+            'member'      => $member,
+            'instruments' => $member->instruments
+        ]);
     }
 
     /**
@@ -46,13 +51,13 @@ class MemberInstrumentController extends Controller
     {
         $member      = $this->memberService->getMember($idMember);
         $instruments = $this->instrumentService->listInstruments();
-        $levels = $this->levelService->listLevels();
+        $levels      = $this->levelService->listLevels();
 
         return view('memberInstrument.create', [
             'member'      => $member,
-            'memberInstrument' => new MemberInstrument(),
+            'memberInstrument' => $member->getInstrument(0),
             'instruments' => $instruments,
-            'levels' => $levels
+            'levels'      => $levels
         ]);
     }
 
@@ -62,9 +67,14 @@ class MemberInstrumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($idMember, Request $request)
+    public function store($idMember, MemberInstrumentRequest $request)
     {
-        $member = $this->memberService->setInstrument($idMember, $request->except('_token'));
+
+        if(!$member = $this->memberService->getMember($idMember)) {
+            return redirect()->back();
+        }
+
+        $this->memberService->addInstrument($member, $request->member_instrument);
         return redirect()->route('member.instrument.index', $member);
     }
 
@@ -85,9 +95,23 @@ class MemberInstrumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idMember, $id)
     {
-        //
+
+        if(!$member = $this->memberService->getMember($idMember)) {
+            return redirect()->back();
+        }
+
+        $memberInstrument  = $member->getInstrument($id);
+        $instruments       = $this->instrumentService->listInstruments();
+        $levels            = $this->levelService->listLevels();
+
+        return view('memberInstrument.update', [
+            'member'           => $member,
+            'memberInstrument' => $memberInstrument,
+            'instruments'      => $instruments,
+            'levels'           => $levels
+        ]);
     }
 
     /**
@@ -97,9 +121,15 @@ class MemberInstrumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MemberInstrumentRequest $request, $id)
     {
-        //
+
+        if(!$member = $this->memberService->getMember($id)) {
+            return redirect()->back();
+        }
+
+        $this->memberService->updateInstrument($member, $request->member_instrument);
+        return redirect()->route('member.instrument.index', $member);
     }
 
     /**
@@ -108,8 +138,14 @@ class MemberInstrumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idMember, $idPivot)
     {
-        //
+
+        if(!$member = $this->memberService->getMember($idMember)) {
+            return redirect()->back();
+        }
+
+        $this->memberService->deleteInstrument($member, $idPivot);
+        return redirect()->route('member.instrument.index', $member);
     }
 }

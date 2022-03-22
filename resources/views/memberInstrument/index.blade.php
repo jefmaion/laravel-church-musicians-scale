@@ -12,7 +12,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Membros</li>
+                <li class="breadcrumb-item active"><a href="{{ route('member.index') }}">Membros</a></li>
                 <li class="breadcrumb-item active">Instrumentos</li>
             </ol>
         </div>
@@ -56,9 +56,9 @@
   
                     <tr>
                       
-                        <td>{{ $item->instrument->name }}</td>
-                        <td>{{ $item->level->name }}</td>
-                        <td>{{ $item->comments }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->pivot->level->name }}</td>
+                        <td>{{ $item->pivot->comments }}</td>
                            
                         <td class="text-center">
                             <div class="dropdown">
@@ -70,7 +70,6 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
         
                                     <h6 class="dropdown-header text-left">Ações</h6>
-        
         
                                     <a href="{{ route('member.instrument.edit', [$member, $item]) }}" class="dropdown-item">
                                         <i class="fas fa-edit    "></i> Editar
@@ -106,7 +105,7 @@
                                                 <i class="fas fa-ban    "></i> Cancelar
                                             </button>
         
-                                            <form action="{{ route('member.destroy', $item) }}" method="POST">
+                                            <form action="{{ route('member.instrument.destroy', [$member, $item]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">

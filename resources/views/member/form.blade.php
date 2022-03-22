@@ -4,6 +4,7 @@
 <div class="row">
 
 
+
 <div class="form-group col-9">
     <label for="">Nome</label>
     <input type="text" class="form-control {{ ($errors->has('name')) ? 'is-invalid' : '' }}" name="name" value="{{ old('name', $member->name) }}" aria-describedby="helpId" placeholder="">

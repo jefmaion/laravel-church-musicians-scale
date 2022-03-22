@@ -44,8 +44,9 @@
                 <thead class="bg-light">
                     <tr>
                         <th>Nome</th>
-                        <th>Email</th>
                         <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Status</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -55,11 +56,16 @@
                     
                     <tr>
                       
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->name }} ({{ $item->nickname }})</td>
                         <td>{{ $item->phone }}</td>
-        
-                        
+                        <td>{{ $item->email }}</td>
+                        <td>
+                            @if($item->enabled == 1)
+                                <span class="badge badge-pill badge-success">Ativo</span>
+                            @else
+                                <span class="badge badge-pill badge-secondary">Inativo</span>
+                            @endif
+                        </td>
                                   
                         <td class="text-center">
                             <div class="dropdown">
@@ -71,8 +77,6 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
         
                                     <h6 class="dropdown-header text-left">Ações</h6>
-        
-                                  
         
                                     <a href="{{ route('member.show', $item) }}" class="dropdown-item">
                                         <i class="fa fa-eye" aria-hidden="true"></i> Ver

@@ -12,8 +12,9 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('member.instrument.index', $member) }}">Membros</a></li>
-                <li class="breadcrumb-item active">Novo</li>
+                <li class="breadcrumb-item active"><a href="{{ route('member.index') }}">Membros</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('member.instrument.index', $member) }}">{{ $member->name }}</a></li>
+                <li class="breadcrumb-item active">Novo Instrumento</li>
             </ol>
         </div>
     </div>
@@ -25,7 +26,13 @@
 
             <form id="form" method="POST" action="{{ route('member.instrument.store', $member) }}">
                 @include('memberInstrument.form')
-                @include('fragments.form-buttons')
+                <button type="submit" class="btn btn-success"> 
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> Salvar
+                </button>
+                
+                <a class="btn btn-secondary" href="{{ route('member.instrument.index', $member) }}" role="button">
+                    <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
+                </a>
             </form>
 
 
@@ -34,9 +41,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    
 @stop
