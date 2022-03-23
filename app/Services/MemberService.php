@@ -14,6 +14,10 @@ class MemberService {
         $this->repository = $repository;
     }
 
+    public function findMember(int $id) {
+        return $this->repository->findById($id);
+    }
+
     public function listMembers() {
         return $this->repository->all();
     }
@@ -26,29 +30,24 @@ class MemberService {
         return $this->repository->update($request, $id);
     }
 
-    public function getMember(int $id) {
-        return $this->repository->findById($id);
-    }
-
     public function deleteMember(int $id) {
         $this->repository->destroy($id);
     }
 
-    public function addInstrument(Member $member, $request) {
+    public function addInstrumentToMember(Member $member, $request) {
         $member = $member->instruments()->attach($member, $request);
         return $member;
     }
 
-    public function updateInstrument(Member $member, $request) {
-        $member->instruments()->updateExistingPivot($request['instrument_id'], $request);
+    public function updateInstrumentToMember(Member $member, $idInstrument, $request) {
+        $member->instruments()->syncWithoutDetaching([$idInstrument => $request]);
         return $member;
     }
 
-    public function deleteInstrument(Member $member, $request) {
-        $member->instruments()->detach($request);
+    public function deleteInstrumentToMember(Member $member, $idPivotInstrument) {
+        $member->instruments()->detach([$idPivotInstrument]);
         return $member;
     }
-
 
     public function getInstrument($member, $id) {
         return $member->instruments()->where('instrument_id', $id)->first();

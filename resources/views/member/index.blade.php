@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0"><i class="fa fa-users" aria-hidden="true"></i> Membros</h1>
+            <h1 class="m-0"><i class="fa fa-users" aria-hidden="true"></i> Membros <small>({{ count($members) }})</small></h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -27,9 +27,14 @@
 
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-success" href="{{ route('member.create') }}" role="button">
+                    {{-- <a class="btn btn-success" href="{{ route('member.create') }}" role="button">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Novo Membro
+                    </a> --}}
+
+                    <a class="btn btn-success" href="#" role="button" data-tsoggle="modal" data-tasrget="#modelId" onclick="showFormModal('{{ route('member.create') }}', 'Novo Membro', 'modal-lg')">
                         <i class="fa fa-user-plus" aria-hidden="true"></i> Novo Membro
                     </a>
+
                 </div>
                 <div class="col">
                     <div class="form-group">
@@ -38,7 +43,6 @@
                 </div>
             </div>
 
-            {{-- <x-datatable :params="$data"  /> --}}
             <table class="mt-3 table table-striped datatable">
 
                 <thead class="bg-light">
@@ -54,7 +58,7 @@
                 <tbody>
                     @foreach($members as  $item)
                     
-                    <tr>
+                    <tr class="{{ ($item->enabled == 1) ? '' : 'text-muted' }}">
                       
                         <td>{{ $item->name }} ({{ $item->nickname }})</td>
                         <td>{{ $item->phone }}</td>
@@ -82,7 +86,10 @@
                                         <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                     </a>
         
-                                    <a href="{{ route('member.edit', $item) }}" class="dropdown-item">
+                                    {{-- <a href="{{ route('member.edit', $item) }}" class="dropdown-item">
+                                        <i class="fas fa-edit    "></i> Editar
+                                    </a> --}}
+                                    <a href="#" onclick="showFormModal('{{ route('member.edit', $item) }}', '<i class=fa fa-eye aria-hidden=true></i> Editar Membro')" class="dropdown-item">
                                         <i class="fas fa-edit    "></i> Editar
                                     </a>
         
@@ -91,6 +98,7 @@
                                     </a>
                                     
                                     <div class="dropdown-divider"></div>
+
                                     <a href="{{ route('member.instrument.index', $item) }}" class="dropdown-item">
                                         <i class="fa fa-guitar" aria-hidden="true"></i> Instrumentos
                                     </a>
@@ -98,40 +106,8 @@
                                 </div>
         
                             </div>
-        
-                            <div class="modal" id="modal-delete-" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-        
-                                            <p class="modal-title sfont-weight-bold">
-                                                <i class="fas fa-trash-alt    "></i> Exclusão
-                                            </p>
-        
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h5 class="text-center">Deseja excluir esse registro?</h5>
-                                        </div>
-                                        <div class="modal-footer">
-        
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                <i class="fas fa-ban    "></i> Cancelar
-                                            </button>
-        
-                                            <form action="{{ route('member.destroy', $item) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                <i class="fas fa-trash-alt    "></i> Excluir
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <x-modal-delete :route="route('member.destroy', $item)"  />
         
                         </td>
                     </tr>
@@ -143,6 +119,40 @@
         </div>
     </div>
 
+    <x-modal-form   />
+
+
+  
+    <!-- Modal -->
+    {{-- <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+                
+                <div class="modal-footer">
+
+                    <button type="button" id="modal-submit-button" class="btn btn-success" onclick="modalSubmit()"> 
+                        <i class="fa fa-check-circle" aria-hidden="true"></i> Salvar
+                    </button>
+                    
+                    <a class="btn btn-secondary"data-dismiss="modal" role="button">
+                        <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
 @stop
 
 @section('plugins.Datatables', true)
@@ -151,8 +161,7 @@
    <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">
 @stop
 
-
-
 @section('js')
     <script src="{{ asset('js/datatable.js') }}"></script>
+    <script src="{{ asset('js/modal.js') }}"></script>
 @stop

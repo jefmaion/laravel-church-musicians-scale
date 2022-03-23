@@ -67,7 +67,7 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        return view('member.update', ['member' => $this->memberService->getMember($id)]);
+        return view('member.update', ['member' => $this->memberService->findMember($id)]);
     }
 
     /**

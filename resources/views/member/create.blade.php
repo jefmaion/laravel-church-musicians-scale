@@ -1,4 +1,8 @@
-@extends('adminlte::page')
+<form id="form" method="POST" action="{{ route('member.store') }}">
+    @include('member.form')
+</form>
+
+{{-- @extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
@@ -20,17 +24,20 @@
 @stop
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
 
-            <form id="form" method="POST" action="{{ route('member.store') }}">
-                @include('member.form')
-                @include('fragments.form-buttons')
-            </form>
-
-
+    <div class="row">
+        <div class="col-12 offsest-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form id="form" method="POST" action="{{ route('member.store') }}">
+                        @include('member.form')
+                        @include('fragments.form-buttons')
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
 @stop
 
 @section('css')
@@ -39,4 +46,4 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
-@stop
+@stop --}}

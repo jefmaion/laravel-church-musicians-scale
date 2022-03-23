@@ -13,11 +13,11 @@
         <option value="{{ $instrument->id }}" {{ ($instrument->id == old('member_instrument.instrument_id', ($memberInstrument->pivot->instrument_id ?? ''))) ? 'selected' : "" }}>{{ $instrument->name }}</option>
         @endforeach
         </select>
-        @if($errors->has('member_instrument.instrument_id'))
+        {{-- @if($errors->has('member_instrument.instrument_id')) --}}
         <div class="invalid-feedback">
             {{ $errors->first('member_instrument.instrument_id') }}
         </div>
-      @endif
+      {{-- @endif --}}
     </div>
   </div>
 

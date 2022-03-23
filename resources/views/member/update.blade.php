@@ -1,4 +1,12 @@
-@extends('adminlte::page')
+
+ <form id="form" method="POST" action="{{ route('member.update', $member) }}">
+    @method('PUT')
+    @include('member.form')
+    {{-- @include('fragments.form-buttons') --}}
+</form>
+
+
+{{-- @extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
@@ -42,4 +50,4 @@
 
 @section('js')
  
-@stop
+@stop --}}

@@ -1,4 +1,17 @@
-@extends('adminlte::page')
+<form id="form" method="POST" action="{{ route('member.instrument.update', [$member, $memberInstrument]) }}">
+    @method('PUT')
+    @include('memberInstrument.form')
+
+    {{-- <button type="submit" class="btn btn-success"> 
+        <i class="fa fa-check-circle" aria-hidden="true"></i> Salvar
+    </button>
+    
+    <a class="btn btn-secondary" href="{{ route('member.instrument.index', $member) }}" role="button">
+        <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
+    </a> --}}
+</form>
+
+{{-- @extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
@@ -51,4 +64,4 @@
 
 @section('js')
  
-@stop
+@stop --}}

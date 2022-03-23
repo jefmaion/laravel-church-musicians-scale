@@ -5,8 +5,8 @@
     }, 
     aaSorting: [],
     paging: true, 
-    info: false,
-    bLengthChange: false,
+    // info: true,
+    // bLengthChange: false,
 }
 
 
